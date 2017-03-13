@@ -78,7 +78,7 @@ string for each tweet."""
 test_training_set=apply_features(extract_features, test_tweets)
 
 """Use the training set to train the classifier. Classifier determines
-the probability of a particular sentiment. Naive Bayes classifier uses the 
+the probability of a particular sentiment. NAIVE BAYES classifier uses the 
 prior probability of each label which is the frequency of each label in the 
 training set, and the contribution from each feature. In our case, the 
 frequency of each label is the same for positive and negative. The word 
