@@ -52,11 +52,11 @@ for(test_words,test_sentiment)in test_pos_tweets+test_neg_tweets:
   test_words_filtered=[e.lower() for e in test_words.split() if len(e)>=3]
   test_tweets.append((test_words_filtered,test_sentiment))
 
-"""CLASSIFIER"""
+"""--------------------CLASSIFIER-----------------------"""
 """Use functions at the top to find occurence of each word, save to word_features"""
 word_features = get_word_features(get_words_in_tweets(tweets))
 
-"""Classifier will decide which tweets have which sentiment. To create classifier, 
+"""CLASSIFIER will decide which tweets have which sentiment. To create classifier, 
 need to decide what features are relevant. First need feature extractor. This 
 one returns a dictionary indicating what words are contained in the input passed. 
 Here, the input is the tweet. Use the word features list defined above along 
@@ -77,16 +77,19 @@ of tuples with each tuple containing the feature dictionary and the sentiment
 string for each tweet."""
 test_training_set=apply_features(extract_features, test_tweets)
 
-"""Use the training set to train the classifier. Classifier determines
-the probability of a particular sentiment. NAIVE BAYES classifier uses the 
+"""Use the training set to train the classifier. CLASSIFIER DETERMINES
+the PROBABILITY of a particular sentiment. NAIVE BAYES classifier uses the 
 prior probability of each label which is the frequency of each label in the 
 training set, and the contribution from each feature. In our case, the 
 frequency of each label is the same for positive and negative. The word 
 amazing appears in 1 of 5 of the positive tweets and none of the negative tweets. 
-This means that the likelihood of the positive label will be multiplied by 0.2 
+This means that the LIKELIHOOD of the positive label will be multiplied by 0.2 
 when this word is seen as part of the input."""
 classifier = nltk.classify.NaiveBayesClassifier.train(training_set)
 
+"""The word FRIEND appears 1 of 5 times in the positive tweets we trained the
+classifier on, so the likelihood of this sentence being positive will be 
+multiplied by 0.2"""
 tweet1 = 'Larry is my friend'
 print tweet1
 print classifier.classify(extract_features(tweet1.split()))

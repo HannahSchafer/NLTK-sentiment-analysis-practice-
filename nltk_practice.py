@@ -3,7 +3,7 @@ from nltk.tokenize import PunktSentenceTokenizer
 
 sentence1 = """The group arrived at two o'clock on Monday afternoon to start
 class."""
-sentence2 = """"The Little Mermaid" (Danish: Den lille havfrue) is a fairy tale 
+sentence2 = """The Little Mermaid (Danish: Den lille havfrue) is a fairy tale 
 written by the Danish author Hans Christian Andersen about a young mermaid who 
 is willing to give up her life in the sea and her identity as a mermaid to gain 
 a human soul."""
