@@ -1,5 +1,7 @@
+# -*- coding: utf-8 -*-
+
 import nltk
-from nltk.probability import FreqDist, ELEProbDist
+from nltk.probability import FreqDist
 from nltk.classify.util import apply_features,accuracy
 
 def get_words_in_tweets(tweets):
@@ -70,7 +72,7 @@ def extract_features(document):
 method apply_features. Pass the feature extractor along with the tweets list."""
 training_set = apply_features(extract_features, tweets)
 
-"""The variable ‘training_set’ contains the labeled feature sets. It is a list 
+"""The variable training_set contains the labeled feature sets. It is a list 
 of tuples with each tuple containing the feature dictionary and the sentiment 
 string for each tweet."""
 test_training_set=apply_features(extract_features, test_tweets)
@@ -79,27 +81,44 @@ test_training_set=apply_features(extract_features, test_tweets)
 the probability of a particular sentiment. Naive Bayes classifier uses the 
 prior probability of each label which is the frequency of each label in the 
 training set, and the contribution from each feature. In our case, the 
-frequency of each label is the same for ‘positive’ and ‘negative’. The word 
-‘amazing’ appears in 1 of 5 of the positive tweets and none of the negative tweets. 
-This means that the likelihood of the ‘positive’ label will be multiplied by 0.2 
+frequency of each label is the same for positive and negative. The word 
+amazing appears in 1 of 5 of the positive tweets and none of the negative tweets. 
+This means that the likelihood of the positive label will be multiplied by 0.2 
 when this word is seen as part of the input."""
 classifier = nltk.classify.NaiveBayesClassifier.train(training_set)
 
 tweet1 = 'Larry is my friend'
-print tweet1:
+print tweet1
 print classifier.classify(extract_features(tweet1.split()))
+print "----------------------------------------------------"
 
-tweet2 = 'Your song is annoying'
-print tweet2:
+tweet2 = 'My house is not great'
+print tweet2
 print classifier.classify(extract_features(tweet2.split()))
+print "----------------------------------------------------"
 
-tweet3 = 'My house is not great'
-print tweet3:
+"""For tweet2, the word ‘great’ weights more on the positive side but the 
+word ‘not’ is part of two negative tweets in our training set so the output 
+from the classifier is ‘negative’. Of course, the following tweet: 
+‘The movie is not bad’ would return ‘negative’ even if it is ‘positive’. 
+Again, a large and well chosen sample will help with the accuracy of the classifier."""
+
+tweet3 = 'Your song is annoying'
+print tweet3
 print classifier.classify(extract_features(tweet3.split()))
+print "----------------------------------------------------"
 
-# Determine the most relevant features, and returns them.
-classifier.show_most_informative_features(5)
+"""The classifier thinks it is positive. The reason is that we don’t have any 
+information on the feature name ‘annoying’. Larger the training sample tweets 
+is, better the classifier will be."""
 
-print nltk.classify.util.accuracy(classifier,test_training_set)
+# """Testing accuracy of the classifier"""
+# classifier.show_most_informative_features(5)
+# print "----------------------------------------------------"
+# print "Accuracy/quality of this classifier:"
+# print nltk.classify.util.accuracy(classifier, test_training_set)
+
+# print test_training_set
+# print training_set
 
 
